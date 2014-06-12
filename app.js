@@ -59,7 +59,7 @@ function debug(object) {
 function convertVideoToGif(inputs) {
   return new Promise(function(resolve, reject){
     var convert = new FFmpeg({ source: inputs.filePath })
-      .withSize(inputs.height + "x" + inputs.width)
+      .withSize(inputs.sizePercentage + '%')
       .withFps(inputs.framesPerSecond)
       .setStartTime(inputs.startTime)
       .setDuration(inputs.endTime - inputs.startTime)
@@ -68,16 +68,10 @@ function convertVideoToGif(inputs) {
       .on('start', function(commandLine) {
           //console.log('Started Processing');
       })
-      .on('progress', function(progress) {
-          //console.log('Processing: ' + progress.percent + '% done');
-          //document.querySelector('#progress-bar').style.width = process.percent;
-      })
       .on('error', function(err) {
         reject(Error(err.message));
       })
       .on('end', function() {
-        document.querySelector('#progress-bar').style.width = 100;
-        document.querySelector('#progress-bar').className = 'ui successful progress';
         resolve('Processing finished!');
       });
   });
@@ -87,21 +81,21 @@ function convertVideoToGif(inputs) {
  * Reads the input values in html and stores to a json object
  * @return json object
  */
-function readInputs() {
+function readHTMLInputs() {
   return new Promise(function(resolve, reject) {
     var inputs = {
       filePath: '/',
       startTime: 0,
       endTime: 5,
       framesPerSecond: 10,
-      height: 100,
-      width: 100
+      sizePercentage: 100;
     };
 
     inputs.filePath = document.querySelector('#file').value;
     inputs.startTime = document.querySelector('#start-time').value;
     inputs.endTIme = document.querySelector('#end-time').value;
     inputs.framesPerSecond = document.querySelector('#frames-per-second').value;
+    inputs.sizePercentage = document.querySelector('#size-percentage').value;
 
     resolve(inputs);
   });
@@ -126,7 +120,7 @@ document.querySelector('#end-time').addEventListener("change", function(evt) {
 }, false);
 
 document.querySelector('#start').addEventListener("click", function(evt) {
-  readInputs()
+  readHTMLInputs()
     .then(convertVideoToGif)
     .then(debug);
 }, false);
