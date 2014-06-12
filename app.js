@@ -18,28 +18,30 @@ var Promise = require('es6-promise').Promise;
  */
 function readFileMetaData(path) {
   return new Promise(function(resolve, reject) {
-    console.log("promise running");
-    FFmpeg.ffprobe(this.value, function(err, metadata) {
+    FFmpeg.ffprobe(path, function(err, metadata) {
       resolve(metadata);
     });
   });
 }
 
-function setUpTimeRangeSlider(metadata) {
-  console.log("setting up");
-  endTime = parseInt(metadata.format.duration, 10);
-  $( "#time-range" ).slider({
-    range: true,
-    min: 0,
-    max: endTime,
-    values: [ 0, endTime ],
-    slide: updateTimeRangeSlider
+function setupTimes(metadata) {
+  return new Promise(function(resolve, reject) {
+    document.querySelector('#end-time').max = parseInt(metadata.format.duration, 10);
+    document.querySelector('#end-time').value = parseInt(metadata.format.duration, 10);
+    resolve(metadata);
   });
 }
 
-function setUpTimeRangeSlider(event, ui) {
-  $( "#time-detail" )
-    .val( ui.values[ 0 ] + " " + ui.values[ 1 ] );
+/**
+ * Used to intercept the output of a promise, print the value, then continue
+ * @param object output of previews command
+ */
+function debug(object) {
+  return new Promise(function(resolve, reject){
+    console.log("debug")
+    console.log(object);
+    resolve(object);
+  });
 }
 
 function convertVideoToGif(path) {
@@ -56,12 +58,26 @@ function convertVideoToGif(path) {
           console.log('Processing: ' + progress.percent + '% done');
       })
       .on('error', function(err) {
-        reject('An error occurred: ' + err.message);
+        reject(Error(err.message));
       })
       .on('end', function() {
         resolve('Processing finished !');
       })
       .saveToFile('temp.gif');
+  });
+}
+
+function readInputs() {
+  return new Promise(function(resolve, reject) {
+    var inputs = {
+      filePath: '/',
+      startTime: 0,
+      endTime: 5,
+      framesPerSecond: 10,
+      height: 100,
+      width: 100
+    };
+    resolve(inputs);
   });
 }
 
@@ -71,7 +87,15 @@ function convertVideoToGif(path) {
  *******************
  */
 document.querySelector('#file').addEventListener("change", function(evt) {
-  readFileMetaData(this.value).then(setUpTimeRangeSlider);
+  readFileMetaData(this.value).then(debug).then(setupTimes);
+}, false);
+
+document.querySelector('#start-time').addEventListener("change", function(evt) {
+  document.querySelector('#end-time').min = document.querySelector('#start-time').value
+}, false);
+
+document.querySelector('#end-time').addEventListener("change", function(evt) {
+  document.querySelector('#start-time').max = document.querySelector('#end-time').value;
 }, false);
 
 document.querySelector('#start').addEventListener("click", function(evt) {
