@@ -1,0 +1,8 @@
+{
+  "name": "giff",
+  "main": "index.html",
+  "dependencies": {
+    "fluent-ffmpeg": "~1.7.2",
+    "es6-promise": "~1.0.0"
+  }
+}
