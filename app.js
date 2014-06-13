@@ -65,13 +65,12 @@ function convertVideoToGif(inputs) {
       .setDuration(inputs.endTime - inputs.startTime)
       .withNoAudio()
       .saveToFile('temp.gif')
-      .on('start', function(commandLine) {
-          //console.log('Started Processing');
-      })
       .on('error', function(err) {
+        document.querySelector('#failure').classList.remove('hidden');
         reject(Error(err.message));
       })
       .on('end', function() {
+        document.querySelector('#success').classList.remove('hidden');
         resolve('Processing finished!');
       });
   });
@@ -88,7 +87,7 @@ function readHTMLInputs() {
       startTime: 0,
       endTime: 5,
       framesPerSecond: 10,
-      sizePercentage: 100;
+      sizePercentage: 100
     };
 
     inputs.filePath = document.querySelector('#file').value;
@@ -112,7 +111,7 @@ document.querySelector('#file').addEventListener("change", function(evt) {
 }, false);
 
 document.querySelector('#start-time').addEventListener("change", function(evt) {
-  document.querySelector('#end-time').min = document.querySelector('#start-time').value
+  document.querySelector('#end-time').min = document.querySelector('#start-time').value;
 }, false);
 
 document.querySelector('#end-time').addEventListener("change", function(evt) {
@@ -121,6 +120,5 @@ document.querySelector('#end-time').addEventListener("change", function(evt) {
 
 document.querySelector('#start').addEventListener("click", function(evt) {
   readHTMLInputs()
-    .then(convertVideoToGif)
-    .then(debug);
+    .then(convertVideoToGif);
 }, false);
