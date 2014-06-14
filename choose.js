@@ -1,0 +1,6 @@
+/**
+ *******************
+ * SESSION STORAGE *
+ *******************
+ */
+sessionStorage.file = '/'

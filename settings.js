@@ -82,13 +82,6 @@ function convertVideoToGif(inputs) {
  */
 function readHTMLInputs() {
   return new Promise(function(resolve, reject) {
-    var inputs = {
-      filePath: '/',
-      startTime: 0,
-      endTime: 5,
-      framesPerSecond: 10,
-      sizePercentage: 100
-    };
 
     inputs.filePath = document.querySelector('#file').value;
     inputs.startTime = document.querySelector('#start-time').value;

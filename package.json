@@ -1,6 +1,11 @@
 {
   "name": "giff",
-  "main": "index.html",
+  "main": "choose.html",
+  "window": {
+    "toolbar": false,
+    "width": 800,
+    "height": 600
+  },
   "dependencies": {
     "fluent-ffmpeg": "~1.7.2",
     "es6-promise": "~1.0.0"
