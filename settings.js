@@ -6,9 +6,6 @@
 var FFmpeg = require('fluent-ffmpeg');
 var Promise = require('es6-promise').Promise;
 
-console.log(sessionStorage.file);
-alert(sessionStorage.file);
-
 /**
  *************
  * FUNCTIONS *
@@ -48,7 +45,6 @@ function setupTimes(metadata) {
  */
 function debug(object) {
   return new Promise(function(resolve, reject){
-    console.log("debug");
     console.log(object);
     resolve(object);
   });
@@ -67,15 +63,7 @@ function convertVideoToGif(inputs) {
       .setStartTime(inputs.startTime)
       .setDuration(inputs.endTime - inputs.startTime)
       .withNoAudio()
-      .saveToFile('temp.gif')
-      .on('error', function(err) {
-        document.querySelector('#failure').classList.remove('hidden');
-        reject(Error(err.message));
-      })
-      .on('end', function() {
-        document.querySelector('#success').classList.remove('hidden');
-        resolve('Processing finished!');
-      });
+      .saveToFile('temp.gif');
   });
 }
 
@@ -85,8 +73,8 @@ function convertVideoToGif(inputs) {
  */
 function readHTMLInputs() {
   return new Promise(function(resolve, reject) {
-
-    inputs.filePath = document.querySelector('#file').value;
+    alert('test');
+    inputs.filePath = sessionStorage.file;
     inputs.startTime = document.querySelector('#start-time').value;
     inputs.endTIme = document.querySelector('#end-time').value;
     inputs.framesPerSecond = document.querySelector('#frames-per-second').value;
@@ -101,10 +89,10 @@ function readHTMLInputs() {
  * EVENT LISTENERS *
  *******************
  */
-document.querySelector('#file').addEventListener("change", function(evt) {
-  readFileMetaData(this.value)
-    .then(setupTimes);
-}, false);
+ window.onload = function () {
+   readFileMetaData(sessionStorage.file)
+     .then(setupTimes);
+ };
 
 document.querySelector('#start-time').addEventListener("change", function(evt) {
   document.querySelector('#end-time').min = document.querySelector('#start-time').value;
@@ -116,5 +104,6 @@ document.querySelector('#end-time').addEventListener("change", function(evt) {
 
 document.querySelector('#start').addEventListener("click", function(evt) {
   readHTMLInputs()
+    .then(debug)
     .then(convertVideoToGif);
 }, false);
