@@ -56,14 +56,22 @@ function debug(object) {
  * @return success string
  */
 function convertVideoToGif(inputs) {
-  return new Promise(function(resolve, reject){
+  return new Promise(function(resolve, reject) {
     var convert = new FFmpeg({ source: sessionStorage.file })
       .withSize(inputs.sizePercentage + '%')
       .withFps(inputs.framesPerSecond)
       .setStartTime(inputs.startTime)
       .setDuration(inputs.endTime - inputs.startTime)
       .withNoAudio()
-      .saveToFile('temp.gif');
+      .saveToFile('temp.gif')
+      .on('error', function(err) {
+        window.location = 'failure.html';
+        reject();
+      })
+      .on('end', function() {
+        window.location = 'success.html';
+        resolve();
+      });
   });
 }
 
@@ -96,7 +104,6 @@ function readHTMLInputs() {
  */
  window.onload = function () {
    readFileMetaData(sessionStorage.file)
-     .then(debug)
      .then(setupTimes);
  };
 
@@ -110,6 +117,5 @@ document.querySelector('#end-time').addEventListener("change", function(evt) {
 
 document.querySelector('#start').addEventListener("click", function(evt) {
   readHTMLInputs()
-    .then(debug)
     .then(convertVideoToGif);
 }, false);
