@@ -2,7 +2,7 @@
   "name": "giff",
   "main": "choose.html",
   "window": {
-    "toolbar": false,
+    
     "width": 800,
     "height": 600
   },

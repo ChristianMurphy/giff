@@ -6,6 +6,9 @@
 var FFmpeg = require('fluent-ffmpeg');
 var Promise = require('es6-promise').Promise;
 
+console.log(sessionStorage.file);
+alert(sessionStorage.file);
+
 /**
  *************
  * FUNCTIONS *
