@@ -9,7 +9,8 @@ window.ondrop = function(e) {
   return false;
 };
 
-var holder = document.getElementById('holder');
+var holder = document.querySelector('#holder');
+
 holder.ondragover = function () {
   this.className = 'hover';
   return false;

@@ -57,7 +57,7 @@ function debug(object) {
  */
 function convertVideoToGif(inputs) {
   return new Promise(function(resolve, reject){
-    var convert = new FFmpeg({ source: inputs.filePath })
+    var convert = new FFmpeg({ source: sessionStorage.file })
       .withSize(inputs.sizePercentage + '%')
       .withFps(inputs.framesPerSecond)
       .setStartTime(inputs.startTime)
@@ -95,7 +95,7 @@ function readHTMLInputs() {
  *******************
  */
  window.onload = function () {
-   readFileMetaData()
+   readFileMetaData(sessionStorage.file)
      .then(debug)
      .then(setupTimes);
  };
