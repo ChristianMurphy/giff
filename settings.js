@@ -73,10 +73,15 @@ function convertVideoToGif(inputs) {
  */
 function readHTMLInputs() {
   return new Promise(function(resolve, reject) {
-    alert('test');
-    inputs.filePath = sessionStorage.file;
+    var inputs = {
+      startTime: 0,
+      endTime: 100,
+      framesPerSecond: 15,
+      sizePercentage: 100
+    };
+
     inputs.startTime = document.querySelector('#start-time').value;
-    inputs.endTIme = document.querySelector('#end-time').value;
+    inputs.endTime = document.querySelector('#end-time').value;
     inputs.framesPerSecond = document.querySelector('#frames-per-second').value;
     inputs.sizePercentage = document.querySelector('#size-percentage').value;
 
@@ -90,7 +95,8 @@ function readHTMLInputs() {
  *******************
  */
  window.onload = function () {
-   readFileMetaData(sessionStorage.file)
+   readFileMetaData()
+     .then(debug)
      .then(setupTimes);
  };
 

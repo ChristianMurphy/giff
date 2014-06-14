@@ -1,12 +1,23 @@
 <html>
   <head>
     <title>giff</title>
+    <link rel="stylesheet" href="semantic/css/semantic.min.css">
     <link rel="stylesheet" href="choose.css">
     <script src="choose.js" defer></script>
   </title>
   <body>
     <div id="holder">
-      <div>drop file here</div>
+      <div class="ui two column middle aligned relaxed grid basic segment">
+        <div class="column">
+          <span class="ui header">drag and drop video here<span>
+        </div>
+        <div class="ui vertical divider">
+          Or
+        </div>
+        <div class="center aligned column">
+          <input id="file" class="custom-file-input" type="file">
+        </div>
+      </div>
     </div>
   </body>
 </html>

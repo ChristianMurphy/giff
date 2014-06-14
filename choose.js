@@ -1,12 +1,12 @@
 // prevent default behavior from changing page on dropped file
 window.ondragover = function(e) {
   e.preventDefault();
-  return false
+  return false;
 };
 
 window.ondrop = function(e) {
   e.preventDefault();
-  return false
+  return false;
 };
 
 var holder = document.getElementById('holder');
@@ -26,3 +26,8 @@ holder.ondrop = function (e) {
   window.location = 'settings.html';
   return false;
 };
+
+document.querySelector('#file').addEventListener("change", function(evt) {
+  sessionStorage.file = this.value;
+  window.location = 'settings.html';
+}, false);
