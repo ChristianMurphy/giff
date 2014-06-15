@@ -1,8 +1,16 @@
+body,
+html {
+  width: 350px;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+}
+
 #holder {
   border: 10px dashed #ccc;
   width: 300px;
   height: 300px;
-  margin: 20px auto;
+  margin: 0;
 }
 
 #holder.hover {

@@ -1,4 +1,5 @@
 #!/bin/sh
 rm -f app.nw
-zip app.nw index.html app.js package.json
+rm -f temp.gif
+zip app.nw *.html *.js *.css *.json
 LD_LIBRARY_PATH=/home/omi/nw:$LD_LIBRARY_PATH nodewebkit $*

@@ -1,10 +1,15 @@
 {
   "name": "giff",
+  "description": "a video to gif tool, using node webkit and ffmpeg",
   "main": "choose.html",
   "window": {
-
-    "width": 500,
-    "height": 500
+    "title": "giff",
+    "toolbar": false,
+    "frame": true,
+    "width": 320,
+    "height": 320,
+    "min_width": 320,
+    "min_height": 320
   },
   "dependencies": {
     "fluent-ffmpeg": "~1.7.2",
