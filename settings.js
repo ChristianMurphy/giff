@@ -63,15 +63,13 @@ function convertVideoToGif(inputs) {
       .setStartTime(inputs.startTime)
       .setDuration(inputs.endTime - inputs.startTime)
       .withNoAudio()
-      .saveToFile('temp.gif')
       .on('error', function(err) {
-        window.location = 'failure.html';
-        reject();
+        reject('failure.html');
       })
       .on('end', function() {
-        window.location = 'success.html';
-        resolve();
-      });
+        resolve('success.html');
+      })
+      .saveToFile('temp.gif');
   });
 }
 
@@ -97,6 +95,27 @@ function readHTMLInputs() {
   });
 }
 
+function startLoadingSpinner (object) {
+  return new Promise(function(resolve, reject) {
+    document.querySelector('.ui.page.dimmer').classList.add("visible","active");
+    resolve(object);
+  });
+}
+
+function stopLoadingSpinner (object) {
+  return new Promise(function(resolve, reject){
+    document.querySelector('.ui.page.dimmer').classList.remove("visible","active");
+    resolve(object);
+  });
+}
+
+function redirect(path) {
+  return new Promise(function(resolve, reject) {
+    window.location = path;
+    resolve();
+  });
+}
+
 /**
  *******************
  * EVENT LISTENERS *
@@ -117,5 +136,8 @@ document.querySelector('#end-time').addEventListener("change", function(evt) {
 
 document.querySelector('#start').addEventListener("click", function(evt) {
   readHTMLInputs()
-    .then(convertVideoToGif);
+    .then(startLoadingSpinner)
+    .then(convertVideoToGif)
+    .then(startLoadingSpinner)
+    .then(redirect);
 }, false);
