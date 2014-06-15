@@ -2,12 +2,14 @@
   <head>
     <title>giff</title>
     <link rel="stylesheet" href="semantic/css/semantic.min.css">
-    <script src="app.js" defer></script>
+    <script src="settings.js" defer></script>
   </head>
   <body>
-    <form class="ui form segment">
+    <div class="ui page dimmer">
+      <div class="ui loader"></div>
+    </div>
 
-      <input id="file" type="file" />
+    <form class="ui form segment">
 
       <div class="field">
         <label for="start-time">start time</label>
@@ -41,12 +43,8 @@
         </div>
       </div>
 
-      <button id="start" class="ui blue submit button">start</button>
+      <button id="start" type="button" class="ui blue submit button">start</button>
+
     </form>
-
-
-
-    <div id="success" class="ui green message hidden">Success!</div>
-    <div id="failure" class="ui red message hidden">Error!</div>
   </body>
 </htm>

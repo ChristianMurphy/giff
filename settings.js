@@ -45,7 +45,6 @@ function setupTimes(metadata) {
  */
 function debug(object) {
   return new Promise(function(resolve, reject){
-    console.log("debug");
     console.log(object);
     resolve(object);
   });
@@ -57,22 +56,20 @@ function debug(object) {
  * @return success string
  */
 function convertVideoToGif(inputs) {
-  return new Promise(function(resolve, reject){
-    var convert = new FFmpeg({ source: inputs.filePath })
+  return new Promise(function(resolve, reject) {
+    var convert = new FFmpeg({ source: sessionStorage.file })
       .withSize(inputs.sizePercentage + '%')
       .withFps(inputs.framesPerSecond)
       .setStartTime(inputs.startTime)
       .setDuration(inputs.endTime - inputs.startTime)
       .withNoAudio()
-      .saveToFile('temp.gif')
       .on('error', function(err) {
-        document.querySelector('#failure').classList.remove('hidden');
-        reject(Error(err.message));
+        reject('failure.html');
       })
       .on('end', function() {
-        document.querySelector('#success').classList.remove('hidden');
-        resolve('Processing finished!');
-      });
+        resolve('success.html');
+      })
+      .saveToFile('temp.gif');
   });
 }
 
@@ -83,20 +80,39 @@ function convertVideoToGif(inputs) {
 function readHTMLInputs() {
   return new Promise(function(resolve, reject) {
     var inputs = {
-      filePath: '/',
       startTime: 0,
-      endTime: 5,
-      framesPerSecond: 10,
+      endTime: 100,
+      framesPerSecond: 15,
       sizePercentage: 100
     };
 
-    inputs.filePath = document.querySelector('#file').value;
     inputs.startTime = document.querySelector('#start-time').value;
-    inputs.endTIme = document.querySelector('#end-time').value;
+    inputs.endTime = document.querySelector('#end-time').value;
     inputs.framesPerSecond = document.querySelector('#frames-per-second').value;
     inputs.sizePercentage = document.querySelector('#size-percentage').value;
 
     resolve(inputs);
+  });
+}
+
+function startLoadingSpinner (object) {
+  return new Promise(function(resolve, reject) {
+    document.querySelector('.ui.page.dimmer').classList.add("visible","active");
+    resolve(object);
+  });
+}
+
+function stopLoadingSpinner (object) {
+  return new Promise(function(resolve, reject){
+    document.querySelector('.ui.page.dimmer').classList.remove("visible","active");
+    resolve(object);
+  });
+}
+
+function redirect(path) {
+  return new Promise(function(resolve, reject) {
+    window.location = path;
+    resolve();
   });
 }
 
@@ -105,10 +121,10 @@ function readHTMLInputs() {
  * EVENT LISTENERS *
  *******************
  */
-document.querySelector('#file').addEventListener("change", function(evt) {
-  readFileMetaData(this.value)
-    .then(setupTimes);
-}, false);
+ window.onload = function () {
+   readFileMetaData(sessionStorage.file)
+     .then(setupTimes);
+ };
 
 document.querySelector('#start-time').addEventListener("change", function(evt) {
   document.querySelector('#end-time').min = document.querySelector('#start-time').value;
@@ -120,5 +136,8 @@ document.querySelector('#end-time').addEventListener("change", function(evt) {
 
 document.querySelector('#start').addEventListener("click", function(evt) {
   readHTMLInputs()
-    .then(convertVideoToGif);
+    .then(startLoadingSpinner)
+    .then(convertVideoToGif)
+    .then(startLoadingSpinner)
+    .then(redirect);
 }, false);
