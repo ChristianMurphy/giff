@@ -2,7 +2,7 @@
     "name": "giff",
     "version": "2.0.0",
     "description": "video to gif converter",
-    "main": "choose.js",
+    "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
