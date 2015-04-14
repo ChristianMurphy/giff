@@ -1,18 +1,27 @@
 {
-  "name": "giff",
-  "description": "a video to gif tool, using node webkit and ffmpeg",
-  "main": "choose.html",
-  "window": {
-    "title": "giff",
-    "toolbar": false,
-    "frame": true,
-    "width": 320,
-    "height": 320,
-    "min_width": 320,
-    "min_height": 320
-  },
-  "dependencies": {
-    "fluent-ffmpeg": "~1.7.2",
-    "es6-promise": "~2.0.0"
-  }
+    "name": "giff",
+    "version": "2.0.0",
+    "description": "video to gif converter",
+    "main": "choose.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ChristianMurphy/giff"
+    },
+    "author": "Christian Murphy",
+    "license": "GPL-2.0",
+    "bugs": {
+        "url": "https://github.com/ChristianMurphy/giff/issues"
+    },
+    "homepage": "https://github.com/ChristianMurphy/giff",
+    "dependencies": {
+        "fluent-ffmpeg": "2.0.0-rc3",
+        "jade": "1.9.2"
+    },
+    "devDependencies": {
+        "atom-shell": "0.23.0",
+        "jshint": "2.7.0"
+    }
 }

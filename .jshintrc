@@ -1,0 +1,7 @@
+{
+    "enforceall": true,
+    "globalstrict": true,
+    "nocomma": false,
+    "node": true,
+    "esnext": true
+}
