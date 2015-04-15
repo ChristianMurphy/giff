@@ -26,7 +26,9 @@ app.on('ready', function() {
     });
 
     // and load the index.html of the app.
-    var html = jade.renderFile(__dirname + '/index.jade');
+    console.log(__dirname + '/views/choose.jade');
+    var html = jade.renderFile(__dirname + '/views/choose.jade');
+    console.log(html);
     var webPage = 'data:text/html,' + encodeURIComponent(html);
     mainWindow.loadUrl(webPage);
 

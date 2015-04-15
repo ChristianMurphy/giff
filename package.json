@@ -2,7 +2,7 @@
     "name": "giff",
     "version": "2.0.0",
     "description": "video to gif converter",
-    "main": "main.js",
+    "main": "controller.js",
     "scripts": {
         "start": "./node_modules/atom-shell/dist/atom .",
         "test": "jshint *.js"
