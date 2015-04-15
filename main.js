@@ -1,5 +1,6 @@
 var app = require('app'); // Module to control application life.
 var BrowserWindow = require('browser-window'); // Module to create native browser window.
+var jade = require('jade');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -25,7 +26,9 @@ app.on('ready', function() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadUrl('file://' + __dirname + 'index.html');
+    var html = jade.renderFile(__dirname + '/index.jade');
+    var webPage = 'data:text/html,' + encodeURIComponent(html);
+    mainWindow.loadUrl(webPage);
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function() {
