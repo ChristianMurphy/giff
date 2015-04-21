@@ -4,7 +4,7 @@
     "description": "video to gif converter",
     "main": "controller.js",
     "scripts": {
-        "start": "./node_modules/atom-shell/dist/atom .",
+        "start": "./node_modules/electron-prebuilt/dist/electron .",
         "test": "jshint *.js"
     },
     "repository": {
@@ -22,7 +22,7 @@
         "jade": "1.9.2"
     },
     "devDependencies": {
-        "atom-shell": "0.23.0",
+        "electron-prebuilt": "0.24.0",
         "jshint": "2.7.0"
     }
 }
