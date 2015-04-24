@@ -1,5 +1,5 @@
 {
-    "preset": "node",
+    "preset": "node-style-guide",
     "esnext": true,
     "validateIndentation": 4
 }
