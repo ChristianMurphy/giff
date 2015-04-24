@@ -1,5 +1,10 @@
-var app = require('app'); // Module to control application life.
-var BrowserWindow = require('browser-window'); // Module to create native browser window.
+'use strict';
+
+// Module to control application life.
+var app = require('app');
+
+// Module to create native browser window.
+var BrowserWindow = require('browser-window');
 var jade = require('jade');
 
 // Report crashes to our server.
