@@ -18,12 +18,12 @@
     },
     "homepage": "https://github.com/ChristianMurphy/giff",
     "dependencies": {
-        "fluent-ffmpeg": "2.0.0-rc3",
+        "fluent-ffmpeg": "2.0.1",
         "jade": "1.9.2"
     },
     "devDependencies": {
-        "electron-prebuilt": "0.24.0",
-        "jscs": "1.12.0",
+        "electron-prebuilt": "0.25.3-2",
+        "jscs": "1.13.1",
         "jshint": "2.7.0"
     }
 }
