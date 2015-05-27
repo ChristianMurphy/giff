@@ -19,10 +19,10 @@
     "homepage": "https://github.com/ChristianMurphy/giff",
     "dependencies": {
         "fluent-ffmpeg": "2.0.1",
-        "jade": "1.9.2"
+        "jade": "1.10.0"
     },
     "devDependencies": {
-        "electron-prebuilt": "0.25.3-2",
+        "electron-prebuilt": "0.26.0-1",
         "jscs": "1.13.1",
         "jshint": "2.7.0"
     }
